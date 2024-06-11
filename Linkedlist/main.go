@@ -2,18 +2,17 @@ package main
 
 import "fmt"
 
-// Node represents an element in the linked list
+
 type Node struct {
 	data int
 	next *Node
 }
 
-// LinkedList represents the linked list
 type LinkedList struct {
 	head *Node
 }
 
-// Insert adds a new node to the end of the list
+
 func (ll *LinkedList) Insert(data int) {
 	newNode := &Node{data: data}
 	if ll.head == nil {
@@ -27,25 +26,26 @@ func (ll *LinkedList) Insert(data int) {
 	}
 }
 
-// Delete removes the first occurrence of the node with the given data
+
 func (ll *LinkedList) Delete(data int) {
 	if ll.head == nil {
 		return
 	}
-	if ll.head.data == data {
+	if ll.head.data == data{
 		ll.head = ll.head.next
 		return
 	}
 	current := ll.head
-	for current.next != nil && current.next.data != data {
+	for current.next != nil {
+		if current.next.data == data {
+				current.next = current.next.next
+				return
+		}
 		current = current.next
-	}
-	if current.next != nil {
-		current.next = current.next.next
 	}
 }
 
-// Traverse prints all elements in the list
+
 func (ll *LinkedList) Traverse() {
 	current := ll.head
 	for current != nil {
@@ -60,8 +60,8 @@ func main() {
 	ll.Insert(1)
 	ll.Insert(2)
 	ll.Insert(3)
-	ll.Traverse() // Output: 1 -> 2 -> 3 -> nil
+	ll.Traverse() 
 
 	ll.Delete(2)
-	ll.Traverse() // Output: 1 -> 3 -> nil
+	ll.Traverse() 
 }

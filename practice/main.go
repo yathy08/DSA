@@ -2,42 +2,68 @@ package main
 
 import "fmt"
 
-type Node struct {
-	data int
-	next *Node
-} 
+func Heapify(arr []int,n int,i int){
+	largest := i
+	left := 2*i+1
+	right:= 2*i+2
 
-type LinkedList struct {
-	head *Node
-}
-func (ll *LinkedList) Insert(data int) {
-	newnode := &Node {data: data}
-	if ll.head == nil {
-		ll.head = newnode
-	} else {
-		current := ll.head
-		for current.next != nil {
-			current = current.next
-		} 
-		current.next = newnode
+	if left < n && arr[left] > arr[largest] {
+		largest = left
+	}
+	if right < n && arr[right] > arr[largest] {
+		largest = right
+	}
+
+	if largest != i {
+		arr[i], arr[largest] = arr[largest] , arr[i]
+		Heapify(arr,n,largest)
 	}
 }
 
-func (ll *LinkedList) Traverse() {
-	current := ll.head
-	for current != nil {
-		fmt.Print(current.data," -> ")
-		current = current.next
+func heapSort(arr []int){
+	n := len(arr)
+	for i:=n/2-1;i>=0;i--{
+		Heapify(arr,n,i)
 	}
-	fmt.Println(" nil ")
+	for i:=n-1;i>0;i--{
+		arr[0],arr[i] = arr[i],arr[0]
+		Heapify(arr,i,0)
+	}
 }
-
+func Reverse(arr []int){
+	start := 0
+	end := len(arr)-1
+	for start < end {
+		arr[start] ,arr[end] = arr[end] , arr[start]
+		start++
+		end--
+	}
+}
 func main() {
-	ll := &LinkedList{}
-	ll.Insert(1)
-	ll.Insert(2)
-	ll.Insert(3)
-	ll.Insert(4)
-	ll.Insert(5)
-	ll.Traverse()
+	arr := []int{12,14,56,3,21,4,8,89,54}
+
+	fmt.Println("Array before sorting",arr)
+
+	heapSort(arr)
+	// Reverse(arr)
+
+	fmt.Println("Array after sorting",arr)
+	largest := Largest(arr)
+	fmt.Println("Largest element:", largest)
+
+}
+
+
+func Largest(arr []int)int{
+	if len(arr) == 0{
+		fmt.Println("Array is empty")
+		return 0
+	}
+	largest := arr[0]
+	for _, value := range arr{
+      if value > largest {
+		largest = value
+	  }
+	}
+	return largest
 }

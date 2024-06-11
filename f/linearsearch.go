@@ -14,5 +14,5 @@ func linearSearch(arr []int, target int) int {
 func main() {
 	arr := []int{1, 2, 3, 4, 5}
 	target := 3
-	fmt.Println(linearSearch(arr, target)) // Output: 2
+	fmt.Println(linearSearch(arr, target)) 
 }

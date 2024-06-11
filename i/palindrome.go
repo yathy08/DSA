@@ -18,5 +18,5 @@ func isPalindrome(s string) bool {
 
 func main() {
 	str := "racecar"
-	fmt.Println(isPalindrome(str)) // Output: true
+	fmt.Println(isPalindrome(str)) 
 }
